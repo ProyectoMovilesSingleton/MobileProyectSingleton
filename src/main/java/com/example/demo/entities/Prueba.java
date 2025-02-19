@@ -1,5 +1,5 @@
 package com.example.demo.entities;
 
-public class a {
+public class Prueba {
 
 }
