@@ -7,9 +7,10 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import com.example.demo.entities.Movil;
-
+@SpringBootTest
 class MovilRespositoryTest {
 
 	@Autowired
@@ -17,7 +18,6 @@ class MovilRespositoryTest {
 	
 	@Test
 	void testFindBymarca() {
-		//Cuando existan moviles en la bbdd
 		Optional<List<Movil>> bymarca = movilRepository.findBymarca("Samsung");
 		assertTrue(!bymarca.get().isEmpty());
 	}

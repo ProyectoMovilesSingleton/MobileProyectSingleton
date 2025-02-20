@@ -26,7 +26,16 @@ public class Movil {
 	private String marca;
 	@NonNull
 	private String modelo;
-	
+	private double almacenamiento;
+	private int ram;
+	private int peso;
+	private int camara;
+	private int miliAmperios;
+	private boolean NFC;
+	private double precio;
+	@NonNull
+	private Date fechaLanzamiento;
+	private int visualizaciones;
 	@ManyToOne
 	@NonNull
 	private Procesador procesador;
@@ -36,16 +45,6 @@ public class Movil {
 	@ManyToOne
 	@NonNull
 	private Dimension dimension;
-	private double almacenamiento;
-	private int ram;
-	private int peso;
-	private int camara;
-	private int miliAmperios;
-	private boolean NFC;
-	private double precio;
-	@NonNull
-	private Date fechaLanzamiento; 
-	
 	
 	
 	
