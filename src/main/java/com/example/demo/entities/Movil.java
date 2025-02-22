@@ -3,6 +3,7 @@ package com.example.demo.entities;
 import java.sql.Date;
 
 import com.example.demo.DTOs.DimensionDTO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 public class Movil {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@JsonIgnore
 	private int id;
 	@NonNull
 	private String marca;
