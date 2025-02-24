@@ -7,7 +7,6 @@ import com.example.demo.DTOs.SummarizedMovilDTO;
 import com.example.demo.entities.Movil;
 @Mapper (componentModel = "spring")
 public interface SummarizedMovilMapper{
-	//Posiblemente no se quede asi
 	@Mapping(target = "nucleosProcesador", source = "movil.procesador.nucleos")
 	public SummarizedMovilDTO mapToDto(Movil movil);
 }
