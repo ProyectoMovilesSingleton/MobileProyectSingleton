@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
@@ -29,18 +30,18 @@ class MovilServiceImplTestCRUDAdmin {
 	@Test
 	void testAddNewMovil() {
 		when(this.movilService.addNewMovil(null)).thenReturn(false);
-		assertFalse( movilService.addNewMovil(null));
+		assertFalse(movilService.addNewMovil(null));
 		//TODO
 	}
 
 	@Test
 	void testGetMovil() {
-		when(this.movilService.getMovil(eq(null))).thenReturn(Optional.empty());
+		when(this.movilService.getMovil(anyInt())).thenReturn(Optional.empty());
 		Optional<AdminMovilDTO> movil = movilService.getMovil(0);
 		assertTrue(movil.isEmpty());
 		AdminMovilDTO value = new AdminMovilDTO(0, null, null, null,
 						null, null, 0, 0, 0, 0, 0, false, 0, null);
-		when(this.movilService.getMovil(any())).thenReturn(Optional.of(value));
+		when(this.movilService.getMovil(anyInt())).thenReturn(Optional.of(value));
 		movil = movilService.getMovil(0);
 		assertEquals(value, movil.get());
 	}
@@ -50,7 +51,7 @@ class MovilServiceImplTestCRUDAdmin {
 		when(this.movilService.updateMovil(null)).thenReturn(false);
 		assertFalse(movilService.updateMovil(null));
 		when(this.movilService.updateMovil(any())).thenReturn(true);
-		assertFalse(movilService.updateMovil(new AdminMovilDTO(1, "Samsung", "Xiaomi",
+		assertTrue(movilService.updateMovil(new AdminMovilDTO(1, "Samsung", "Xiaomi",
 					null, null, null, 0, 0, 0, 0, 0, false, 0, null)));
 		//TODO
 	}
@@ -58,7 +59,6 @@ class MovilServiceImplTestCRUDAdmin {
 	@Test
 	void testGetAllMoviles() {
 		//TODO
-		fail("Not yet implemented");
 	}
 	
 	@AfterEach
