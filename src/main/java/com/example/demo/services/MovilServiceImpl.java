@@ -9,25 +9,38 @@ import com.example.demo.DTOs.MovilDTO;
 import com.example.demo.DTOs.SummarizedMovilDTO;
 import com.example.demo.entities.Movil;
 import com.example.demo.mapper.MovilMapper;
+import com.example.demo.mapper.SummarizedMovilMapper;
 import com.example.demo.repositories.MovilRepository;
 
 @Service
 public class MovilServiceImpl implements MovilService {
 	
-	private MovilRepository movilRepository;
-	private MovilMapper movilMapper;
+	private final MovilRepository movilRepository;
+	private final MovilMapper movilMapper;
+	private final SummarizedMovilMapper summarizedMovilMapper;
 	
-	public MovilServiceImpl(MovilRepository movilRepository, MovilMapper movilMapper) {
+	public MovilServiceImpl(MovilRepository movilRepository, MovilMapper movilMapper, SummarizedMovilMapper summarizedMovilMapper) {
 		super();
 		this.movilRepository = movilRepository;
 		this.movilMapper= movilMapper;
+		this.summarizedMovilMapper = summarizedMovilMapper;
 	}
 
 	@Override
 	public List<SummarizedMovilDTO> getMovilesByMarca(String marca) {
+//		List<SummarizedMovilDTO> summarizedMovilDTOs = new ArrayList<>();
 		Optional<List<Movil>> bymarca = movilRepository.findBymarca(marca);
-		//TODO
-		return null;
+		if (bymarca.isPresent()) {
+//			 bymarca.get()
+//				.stream()
+//				.forEach(
+//					movil -> {summarizedMovilDTOs.add(summarizedMovilMapper.mapToDto(movil));});
+			return bymarca.get()
+				.stream()
+				.map(movil -> summarizedMovilMapper.mapToDto(movil))
+				.toList();
+		}
+		return  null;
 	}
 	@Override
 	public Optional<MovilDTO> getMovilById(int id) {

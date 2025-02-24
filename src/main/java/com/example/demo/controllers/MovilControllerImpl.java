@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.DTOs.MovilDTO;
+import com.example.demo.DTOs.SummarizedMovilDTO;
 import com.example.demo.services.MovilService;
 
 @RestController
@@ -33,5 +35,19 @@ public class MovilControllerImpl implements MovilController {
 			ResponseEntity.ok().body(Optional.of(movilDTO)))
 		.orElse(ResponseEntity.badRequest().eTag("no existe").body(Optional.empty()));
 	}
+
+
+	@GetMapping("byMarca")
+	@Override
+	public ResponseEntity<List<SummarizedMovilDTO>> getMovilesByMarca(@RequestParam String marca) {
+		List<SummarizedMovilDTO> movilesByMarca = movilService.getMovilesByMarca(marca);
+		if (!movilesByMarca.isEmpty()) {
+			return ResponseEntity.ok().body(movilesByMarca);
+		} else {
+			return ResponseEntity.badRequest().eTag("No existen moviles con la marca" + marca).body(movilesByMarca);
+		}
+	}
+	
+	
 
 }
