@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.example.demo.DTOs.AdminMovilDTO;
 import com.example.demo.DTOs.MovilDTO;
 import com.example.demo.DTOs.SummarizedMovilDTO;
 import com.example.demo.entities.Movil;
@@ -28,13 +29,8 @@ public class MovilServiceImpl implements MovilService {
 
 	@Override
 	public List<SummarizedMovilDTO> getMovilesByMarca(String marca) {
-//		List<SummarizedMovilDTO> summarizedMovilDTOs = new ArrayList<>();
 		Optional<List<Movil>> bymarca = movilRepository.findBymarca(marca);
 		if (bymarca.isPresent()) {
-//			 bymarca.get()
-//				.stream()
-//				.forEach(
-//					movil -> {summarizedMovilDTOs.add(summarizedMovilMapper.mapToDto(movil));});
 			return bymarca.get()
 				.stream()
 				.map(movil -> summarizedMovilMapper.mapToDto(movil))
@@ -42,6 +38,7 @@ public class MovilServiceImpl implements MovilService {
 		}
 		return  null;
 	}
+	
 	@Override
 	public Optional<MovilDTO> getMovilById(int id) {
 		Optional<Movil> byId = movilRepository.findById(id);
@@ -53,12 +50,6 @@ public class MovilServiceImpl implements MovilService {
 
 	@Override
 	public List<SummarizedMovilDTO> getMovilesByFilters() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<MovilDTO> getAllMoviles() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -78,16 +69,23 @@ public class MovilServiceImpl implements MovilService {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
+	
 	@Override
-	public boolean save(Movil movil) {
-		Movil save = movilRepository.save(movil);
-		if (save!=null) {
-			return true;
-		}
-		else return false;
+	public Optional<AdminMovilDTO> getMovil(int id) {
+		// TODO Auto-generated method stub
+		return Optional.empty();
 	}
 
-	
+	@Override
+	public boolean updateMovil(AdminMovilDTO movilDTO) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public List<AdminMovilDTO> getAllMoviles() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

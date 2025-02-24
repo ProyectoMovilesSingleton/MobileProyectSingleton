@@ -1,5 +1,8 @@
 package com.example.demo.mapper;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.sql.Date;
 import java.time.LocalDate;
 
@@ -8,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.example.demo.DTOs.MovilDTO;
+import com.example.demo.DTOs.SummarizedMovilDTO;
 import com.example.demo.entities.Dimension;
 import com.example.demo.entities.Movil;
 import com.example.demo.entities.Pantalla;
@@ -25,6 +29,8 @@ class MovilMapperTest {
 		Pantalla pantalla = new Pantalla(1d, "OLED");
 		Movil movil = new Movil("Alguna", "Alguna",Date.valueOf(LocalDate.now()), procesador, pantalla, dimension);
 		MovilDTO mapToDto = movilMapper.mapToDto(movil);
+		assertTrue(mapToDto.getClass().equals(MovilDTO.class));
+		assertEquals(movil.getAlmacenamiento(), mapToDto.almacenamiento());
 	}
 
 }
