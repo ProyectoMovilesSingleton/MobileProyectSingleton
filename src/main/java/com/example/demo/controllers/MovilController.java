@@ -13,6 +13,8 @@ public interface MovilController {
 	 public ResponseEntity<Optional<MovilDTO>> getMovil(int id); 
 	 public ResponseEntity<List<SummarizedMovilDTO>> getMovilesByMarca(String marca);
 	 
+	 public ResponseEntity<List<SummarizedMovilDTO>> getTop5Moviles();
+	 
 	 //CRUD Admin
 	 //A modo de referencia (cambiar si es necesario)
 	 public ResponseEntity<Boolean> deleteMovil(int id);

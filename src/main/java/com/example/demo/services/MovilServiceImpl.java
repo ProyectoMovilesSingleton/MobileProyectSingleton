@@ -88,4 +88,17 @@ public class MovilServiceImpl implements MovilService {
 		return null;
 	}
 
+	@Override
+	public List<SummarizedMovilDTO> getTop5Moviles() {
+		Optional<List<Movil>> moviles = movilRepository.findTop5ByOrderByVisualizacionesDesc();
+		if (moviles.isPresent()) {
+			return moviles.get()
+				.stream()
+				.map(movil -> summarizedMovilMapper.mapToDto(movil))
+				.toList();
+		}
+		movilRepository.findTop5ByOrderByVisualizacionesDesc();
+		return null;
+	}
+
 }
