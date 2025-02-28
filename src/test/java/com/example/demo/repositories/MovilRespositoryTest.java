@@ -1,5 +1,6 @@
 package com.example.demo.repositories;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
@@ -20,6 +21,12 @@ class MovilRespositoryTest {
 	void testFindBymarca() {
 		Optional<List<Movil>> bymarca = movilRepository.findBymarca("Samsung");
 		assertTrue(!bymarca.get().isEmpty());
+	}
+	@Test
+	void testTop5Moviles() {
+		Optional<List<Movil>> moviles = movilRepository.findTop5ByOrderByVisualizacionesDesc();
+		assertTrue(!moviles.get().isEmpty());
+		assertEquals(moviles.get().get(0).getVisualizaciones(), 212);
 	}
 
 }

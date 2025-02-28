@@ -20,5 +20,12 @@ class MovilServiceImplTest {
 		List<SummarizedMovilDTO> movilesByMarca = movilService.getMovilesByMarca("Samsung");
 		assertTrue(!movilesByMarca.isEmpty());
 	}
+	
+	@Test
+	void testGetTop5Moviles() {
+		List<SummarizedMovilDTO> moviles = movilService.getTop5Moviles();
+		assertTrue(!moviles.isEmpty());
+		assertEquals(moviles.get(0).marca(), "Xiaomi");
+	}
 
 }

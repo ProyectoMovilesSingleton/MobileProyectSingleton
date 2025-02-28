@@ -12,6 +12,9 @@ public interface MovilService {
 	//Para el usuario
 	public List<SummarizedMovilDTO> getMovilesByMarca(String marca);
 	public Optional<MovilDTO> getMovilById(int id);
+	
+	public List<SummarizedMovilDTO> getTop5Moviles();
+	
 	//TODO
 	public List<SummarizedMovilDTO> getMovilesByFilters();
 	//Para el admin

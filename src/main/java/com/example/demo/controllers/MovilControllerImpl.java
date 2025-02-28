@@ -81,6 +81,18 @@ public class MovilControllerImpl implements MovilController {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
+
+	@Override
+	public ResponseEntity<List<SummarizedMovilDTO>> getTop5Moviles() {
+		List<SummarizedMovilDTO> moviles = movilService.getTop5Moviles();
+		if (!moviles.isEmpty()) {
+			return ResponseEntity.ok().body(moviles);
+		} else {
+			return ResponseEntity.badRequest().eTag("No se encontraron moviles").body(moviles);
+		}
+	}
 	
 	
 

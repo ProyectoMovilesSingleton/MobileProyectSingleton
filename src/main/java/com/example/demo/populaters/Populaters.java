@@ -98,6 +98,11 @@ public class Populaters {
         		new Movil(selectorRnd(marcas), selectorRnd(modelos), Date.valueOf(LocalDate.now()), procesadores.get(getRndNumber()), pantallas.get(getRndNumber()), dimensiones.get(getRndNumber())),
         		new Movil(selectorRnd(marcas), selectorRnd(modelos), Date.valueOf(LocalDate.now()), procesadores.get(getRndNumber()), pantallas.get(getRndNumber()), dimensiones.get(getRndNumber()))
         		);
+        
+        moviles.get(0).setVisualizaciones(212);
+        moviles.get(1).setVisualizaciones(12);
+        moviles.get(2).setVisualizaciones(23);
+        
         movilRepository.saveAll(moviles);
 	}
 	
@@ -112,3 +117,4 @@ public class Populaters {
 		return random.nextInt(10);
 	}
 }
+
