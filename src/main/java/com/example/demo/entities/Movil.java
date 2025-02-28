@@ -49,5 +49,24 @@ public class Movil {
 	private Dimension dimension;
 	
 	
-	
+	//Para Populaters
+	public Movil(@NonNull String marca, @NonNull String modelo, double almacenamiento, int ram, int peso, int camara,
+			int miliAmperios, boolean nFC, double precio, @NonNull Date fechaLanzamiento, int visualizaciones,
+			@NonNull Procesador procesador, @NonNull Pantalla pantalla, @NonNull Dimension dimension) {
+		super();
+		this.marca = marca;
+		this.modelo = modelo;
+		this.almacenamiento = almacenamiento;
+		this.ram = ram;
+		this.peso = peso;
+		this.camara = camara;
+		this.miliAmperios = miliAmperios;
+		NFC = nFC;
+		this.precio = precio;
+		this.fechaLanzamiento = fechaLanzamiento;
+		this.visualizaciones = visualizaciones;
+		this.procesador = procesador;
+		this.pantalla = pantalla;
+		this.dimension = dimension;
+	}
 }

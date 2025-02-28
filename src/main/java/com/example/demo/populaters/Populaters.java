@@ -29,6 +29,10 @@ public class Populaters {
 	private final ProcesadorRepository procesadorRepository;
 	private String[] marcas = { "Samsung", "Apple", "Xiaomi", "OnePlus", "Google" };
     private String[] modelos = { "S23", "iPhone 14", "Mi 13", "Nord 2", "Pixel 7" };
+    private double[] almacenamientosMoviles = {64.0, 128.0, 256.0, 512.0, 1024.0};
+    private int[] ramOpciones = {1, 2, 3, 4, 6, 8, 12, 16, 32};
+    private int[] baterias = {2000, 2500, 3000, 3500, 4000, 4500, 5000, 5500, 6000, 7000};
+    private boolean[] nfc= {true,false};
     
 	public Populaters(MovilRepository movilRepository, DimensionRepository dimensionRepository,
 			PantallaRepository pantallaRepository, ProcesadorRepository procesadorRepository) {
@@ -85,18 +89,16 @@ public class Populaters {
         procesadorRepository.saveAll(procesadores);
         
         List<Movil> moviles = List.of(
-        		new Movil(selectorRnd(marcas), selectorRnd(modelos), Date.valueOf(LocalDate.now()), procesadores.get(getRndNumber()), pantallas.get(getRndNumber()), dimensiones.get(getRndNumber())),
-        		new Movil(selectorRnd(marcas), selectorRnd(modelos), Date.valueOf(LocalDate.now()), procesadores.get(getRndNumber()), pantallas.get(getRndNumber()), dimensiones.get(getRndNumber())),
-        		new Movil(selectorRnd(marcas), selectorRnd(modelos), Date.valueOf(LocalDate.now()), procesadores.get(getRndNumber()), pantallas.get(getRndNumber()), dimensiones.get(getRndNumber())),
-        		new Movil(selectorRnd(marcas), selectorRnd(modelos), Date.valueOf(LocalDate.now()), procesadores.get(getRndNumber()), pantallas.get(getRndNumber()), dimensiones.get(getRndNumber())),
-        		new Movil(selectorRnd(marcas), selectorRnd(modelos), Date.valueOf(LocalDate.now()), procesadores.get(getRndNumber()), pantallas.get(getRndNumber()), dimensiones.get(getRndNumber())),
-        		new Movil(selectorRnd(marcas), selectorRnd(modelos), Date.valueOf(LocalDate.now()), procesadores.get(getRndNumber()), pantallas.get(getRndNumber()), dimensiones.get(getRndNumber())),
-        		new Movil(selectorRnd(marcas), selectorRnd(modelos), Date.valueOf(LocalDate.now()), procesadores.get(getRndNumber()), pantallas.get(getRndNumber()), dimensiones.get(getRndNumber())),
-        		new Movil(selectorRnd(marcas), selectorRnd(modelos), Date.valueOf(LocalDate.now()), procesadores.get(getRndNumber()), pantallas.get(getRndNumber()), dimensiones.get(getRndNumber())),
-        		new Movil(selectorRnd(marcas), selectorRnd(modelos), Date.valueOf(LocalDate.now()), procesadores.get(getRndNumber()), pantallas.get(getRndNumber()), dimensiones.get(getRndNumber())),
-        		new Movil(selectorRnd(marcas), selectorRnd(modelos), Date.valueOf(LocalDate.now()), procesadores.get(getRndNumber()), pantallas.get(getRndNumber()), dimensiones.get(getRndNumber())),
-        		new Movil(selectorRnd(marcas), selectorRnd(modelos), Date.valueOf(LocalDate.now()), procesadores.get(getRndNumber()), pantallas.get(getRndNumber()), dimensiones.get(getRndNumber())),
-        		new Movil(selectorRnd(marcas), selectorRnd(modelos), Date.valueOf(LocalDate.now()), procesadores.get(getRndNumber()), pantallas.get(getRndNumber()), dimensiones.get(getRndNumber()))
+        		new Movil(selectorRnd(marcas), selectorRnd(modelos), getRandomStorage(almacenamientosMoviles), getRandomIntArray(ramOpciones), getRndNumber(), getRndNumber(), getRandomIntArray(baterias), getRandomBoolean(nfc), getRndNumber(), Date.valueOf(LocalDate.now()), 0, procesadores.get(getRndNumber()), pantallas.get(getRndNumber()), dimensiones.get(getRndNumber())),
+        		new Movil(selectorRnd(marcas), selectorRnd(modelos), getRandomStorage(almacenamientosMoviles), getRandomIntArray(ramOpciones), getRndNumber(), getRndNumber(), getRandomIntArray(baterias), getRandomBoolean(nfc), getRndNumber(), Date.valueOf(LocalDate.now()), 0, procesadores.get(getRndNumber()), pantallas.get(getRndNumber()), dimensiones.get(getRndNumber())),
+        		new Movil(selectorRnd(marcas), selectorRnd(modelos), getRandomStorage(almacenamientosMoviles), getRandomIntArray(ramOpciones), getRndNumber(), getRndNumber(), getRandomIntArray(baterias), getRandomBoolean(nfc), getRndNumber(), Date.valueOf(LocalDate.now()), 0, procesadores.get(getRndNumber()), pantallas.get(getRndNumber()), dimensiones.get(getRndNumber())),
+        		new Movil(selectorRnd(marcas), selectorRnd(modelos), getRandomStorage(almacenamientosMoviles), getRandomIntArray(ramOpciones), getRndNumber(), getRndNumber(), getRandomIntArray(baterias), getRandomBoolean(nfc), getRndNumber(), Date.valueOf(LocalDate.now()), 0, procesadores.get(getRndNumber()), pantallas.get(getRndNumber()), dimensiones.get(getRndNumber())),
+        		new Movil(selectorRnd(marcas), selectorRnd(modelos), getRandomStorage(almacenamientosMoviles), getRandomIntArray(ramOpciones), getRndNumber(), getRndNumber(), getRandomIntArray(baterias), getRandomBoolean(nfc), getRndNumber(), Date.valueOf(LocalDate.now()), 0, procesadores.get(getRndNumber()), pantallas.get(getRndNumber()), dimensiones.get(getRndNumber())),
+        		new Movil(selectorRnd(marcas), selectorRnd(modelos), getRandomStorage(almacenamientosMoviles), getRandomIntArray(ramOpciones), getRndNumber(), getRndNumber(), getRandomIntArray(baterias), getRandomBoolean(nfc), getRndNumber(), Date.valueOf(LocalDate.now()), 0, procesadores.get(getRndNumber()), pantallas.get(getRndNumber()), dimensiones.get(getRndNumber())),
+        		new Movil(selectorRnd(marcas), selectorRnd(modelos), getRandomStorage(almacenamientosMoviles), getRandomIntArray(ramOpciones), getRndNumber(), getRndNumber(), getRandomIntArray(baterias), getRandomBoolean(nfc), getRndNumber(), Date.valueOf(LocalDate.now()), 0, procesadores.get(getRndNumber()), pantallas.get(getRndNumber()), dimensiones.get(getRndNumber())),
+        		new Movil(selectorRnd(marcas), selectorRnd(modelos), getRandomStorage(almacenamientosMoviles), getRandomIntArray(ramOpciones), getRndNumber(), getRndNumber(), getRandomIntArray(baterias), getRandomBoolean(nfc), getRndNumber(), Date.valueOf(LocalDate.now()), 0, procesadores.get(getRndNumber()), pantallas.get(getRndNumber()), dimensiones.get(getRndNumber())),
+        		new Movil(selectorRnd(marcas), selectorRnd(modelos), getRandomStorage(almacenamientosMoviles), getRandomIntArray(ramOpciones), getRndNumber(), getRndNumber(), getRandomIntArray(baterias), getRandomBoolean(nfc), getRndNumber(), Date.valueOf(LocalDate.now()), 0, procesadores.get(getRndNumber()), pantallas.get(getRndNumber()), dimensiones.get(getRndNumber())),
+        		new Movil(selectorRnd(marcas), selectorRnd(modelos), getRandomStorage(almacenamientosMoviles), getRandomIntArray(ramOpciones), getRndNumber(), getRndNumber(), getRandomIntArray(baterias), getRandomBoolean(nfc), getRndNumber(), Date.valueOf(LocalDate.now()), 0, procesadores.get(getRndNumber()), pantallas.get(getRndNumber()), dimensiones.get(getRndNumber()))
         		);
         movilRepository.saveAll(moviles);
 	}
@@ -110,5 +112,20 @@ public class Populaters {
 	private int getRndNumber() {
 		Random random = new Random();
 		return random.nextInt(10);
+	}
+	
+	private double getRandomStorage(double[] almacenamientos) {
+		Random random=new Random();
+		return almacenamientos[random.nextInt(almacenamientosMoviles.length)];
+	}
+	
+	private int getRandomIntArray(int[] arrayInt) {
+	    Random random = new Random();
+	    return arrayInt[random.nextInt(ramOpciones.length)];
+	}
+	
+	private boolean getRandomBoolean(boolean[] booleans) {
+	    Random random = new Random();
+	    return booleans[random.nextInt(booleans.length)];  // Corregido a booleans.length
 	}
 }
