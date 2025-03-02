@@ -16,9 +16,9 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 @Entity
-@Data
 @NoArgsConstructor
 @RequiredArgsConstructor
+@Data
 public class Movil {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
