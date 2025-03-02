@@ -2,7 +2,7 @@ package com.example.demo.filters;
 
 import com.example.demo.entities.Movil;
 
-public abstract class MovilFilter<T> {
+public abstract class MovilFilter<T> implements Filter<Movil> {
 		protected T paramaterT;
 
 		public MovilFilter(T paramaterT) {
