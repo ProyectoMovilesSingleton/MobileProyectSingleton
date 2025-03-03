@@ -1,7 +1,9 @@
 package com.example.demo.services;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
@@ -99,6 +101,18 @@ public class MovilServiceImpl implements MovilService {
 		}
 		movilRepository.findTop5ByOrderByVisualizacionesDesc();
 		return null;
+	}
+
+	@Override
+	public Set<MovilDTO> compareTwoMoviles(int id1, int id2) {
+		Set<MovilDTO> movilesDtos = new HashSet<>();
+		Optional<Movil> movilOne = movilRepository.findById(id1);
+		Optional<Movil> movilTwo = movilRepository.findById(id2);
+		if (movilOne.isPresent() && movilTwo.isPresent()) {
+			movilesDtos.add(movilMapper.mapToDto(movilOne.get()));
+			movilesDtos.add(movilMapper.mapToDto(movilTwo.get()));
+		}
+		return movilesDtos;
 	}
 
 }

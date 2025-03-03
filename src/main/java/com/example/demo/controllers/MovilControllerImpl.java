@@ -2,6 +2,7 @@ package com.example.demo.controllers;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,7 +38,6 @@ public class MovilControllerImpl implements MovilController {
 		.orElse(ResponseEntity.badRequest().eTag("no existe").body(Optional.empty()));
 	}
 
-
 	@GetMapping("byMarca")
 	@Override
 	public ResponseEntity<List<SummarizedMovilDTO>> getMovilesByMarca(@RequestParam String marca) {
@@ -46,6 +46,17 @@ public class MovilControllerImpl implements MovilController {
 			return ResponseEntity.ok().body(movilesByMarca);
 		} else {
 			return ResponseEntity.badRequest().eTag("No existen moviles con la marca" + marca).body(movilesByMarca);
+		}
+	}
+	
+	@Override
+	@GetMapping("compare")
+	public ResponseEntity<Set<MovilDTO>> compareTwoMoviles(@RequestParam int idMovil1,@RequestParam int idMovil2) {
+		Set<MovilDTO> compareTwoMoviles = movilService.compareTwoMoviles(idMovil1, idMovil2);
+		if (compareTwoMoviles.size()==2) {
+			return ResponseEntity.ok(compareTwoMoviles);
+		} else {
+			return ResponseEntity.badRequest().eTag("No se puede realizar la comparacion").body(compareTwoMoviles);
 		}
 	}
 
@@ -93,6 +104,10 @@ public class MovilControllerImpl implements MovilController {
 			return ResponseEntity.badRequest().eTag("No se encontraron moviles").body(moviles);
 		}
 	}
+
+
+
+	
 	
 	
 
