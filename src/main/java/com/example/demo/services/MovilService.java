@@ -2,6 +2,7 @@ package com.example.demo.services;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import com.example.demo.DTOs.AdminMovilDTO;
 import com.example.demo.DTOs.MovilDTO;
@@ -12,7 +13,7 @@ public interface MovilService {
 	//Para el usuario
 	public List<SummarizedMovilDTO> getMovilesByMarca(String marca);
 	public Optional<MovilDTO> getMovilById(int id);
-	
+	public Set<MovilDTO> compareTwoMoviles(int id1, int id2);
 	public List<SummarizedMovilDTO> getTop5Moviles();
 	
 	//TODO
