@@ -4,14 +4,18 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.DTOs.AdminMovilDTO;
 import com.example.demo.DTOs.MovilDTO;
+import com.example.demo.DTOs.MovilFilterDTO;
 import com.example.demo.DTOs.SummarizedMovilDTO;
 import com.example.demo.services.MovilService;
 
@@ -104,11 +108,14 @@ public class MovilControllerImpl implements MovilController {
 			return ResponseEntity.badRequest().eTag("No se encontraron moviles").body(moviles);
 		}
 	}
-
-
-
 	
-	
-	
-
+	@Override
+	@PostMapping("filtrar")
+	public ResponseEntity<List<SummarizedMovilDTO>> getMovilesByFilters(@RequestBody MovilFilterDTO movilFilterDTO) {
+		List<SummarizedMovilDTO> movilesByFilters = movilService.getMovilesByFilters(movilFilterDTO);
+		if(movilesByFilters.isEmpty() && movilesByFilters.size()==0) {
+			return ResponseEntity.noContent().eTag("No hay móviles con las características introducidas").build();	//Build porque si no hay moviles con los parámetros introducidos, no tenemos body para el ResponseEntity
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(movilesByFilters);
+	}
 }
