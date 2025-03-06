@@ -141,7 +141,24 @@ public class MovilServiceImpl implements MovilService {
 	    if (movilFilterDTO.precioMin() == null || movilFilterDTO.precioMax() == null) {
 	        throw new IllegalArgumentException("Debe proporcionar un precio mínimo y máximo.");
 	    }
+	    List<Movil> movilesFiltrados = movilRepository.findAll().stream()
+	        .filter(movil -> movil.getPrecio() >= movilFilterDTO.precioMin() && movil.getPrecio() <= movilFilterDTO.precioMax())
+	        .filter(movil -> movilFilterDTO.ram() == null || Integer.valueOf(movil.getRam()).equals(movilFilterDTO.ram())) 
+	        .filter(movil -> movilFilterDTO.nfc() == null || movil.isNFC() == movilFilterDTO.nfc()) 
+	        .filter(movil -> movilFilterDTO.tecnologiaPantalla() == null || movil.getPantalla().getTecnologia().equalsIgnoreCase(movilFilterDTO.tecnologiaPantalla()))
+	        .filter(movil -> movilFilterDTO.marca() == null || movil.getMarca().equalsIgnoreCase(movilFilterDTO.marca()))
+	        .toList();
 
+	    return movilesFiltrados.stream()
+	        .map(summarizedMovilMapper::mapToDto)
+	        .toList();
+	}
+	
+	public List<SummarizedMovilDTO> getMovilesByFiltersV2(MovilFilterDTO movilFilterDTO) {
+	    if (movilFilterDTO.precioMin() == null || movilFilterDTO.precioMax() == null) {
+	        throw new IllegalArgumentException("Debe proporcionar un precio mínimo y máximo.");
+	    }
+	    
 	    List<Movil> movilesFiltrados = movilRepository.findAll().stream()
 	        .filter(movil -> movil.getPrecio() >= movilFilterDTO.precioMin() && movil.getPrecio() <= movilFilterDTO.precioMax())
 	        .filter(movil -> movilFilterDTO.ram() == null || Integer.valueOf(movil.getRam()).equals(movilFilterDTO.ram())) 
