@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 
 import com.example.demo.DTOs.AdminMovilDTO;
 import com.example.demo.DTOs.MovilDTO;
+import com.example.demo.DTOs.MovilFilterDTO;
 import com.example.demo.DTOs.SummarizedMovilDTO;
 
 public interface MovilController {
@@ -21,5 +22,8 @@ public interface MovilController {
 	 public ResponseEntity<Boolean> deleteMovil(int id);
 	 public ResponseEntity<Boolean> saveMovil(AdminMovilDTO movilDTO);
 	 public ResponseEntity<Boolean> updateMovil(AdminMovilDTO movilDTO);
-	 public ResponseEntity<AdminMovilDTO> getMovilAdmin(int id); 
+	 public ResponseEntity<AdminMovilDTO> getMovilAdmin(int id);
+	 
+	 //Para los filtros de búsqueda obligatorios
+	 public ResponseEntity<List<SummarizedMovilDTO>> getMovilesByFilters(MovilFilterDTO movilFilterDTO);
 }

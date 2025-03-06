@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.DTOs.AdminMovilDTO;
 import com.example.demo.DTOs.MovilDTO;
+import com.example.demo.DTOs.MovilFilterDTO;
 import com.example.demo.DTOs.SummarizedMovilDTO;
 import com.example.demo.entities.Movil;
 import com.example.demo.mapper.MovilMapper;
@@ -49,13 +50,7 @@ public class MovilServiceImpl implements MovilService {
 		} 
 		return Optional.empty();
 	}
-
-	@Override
-	public List<SummarizedMovilDTO> getMovilesByFilters() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
 	@Override
 	public boolean delete(int id) {
 		try {
@@ -115,4 +110,22 @@ public class MovilServiceImpl implements MovilService {
 		return movilesDtos;
 	}
 
+	@Override
+	public List<SummarizedMovilDTO> getMovilesByFilters(MovilFilterDTO movilFilterDTO) {
+	    if (movilFilterDTO.precioMin() == null || movilFilterDTO.precioMax() == null) {
+	        throw new IllegalArgumentException("Debe proporcionar un precio mínimo y máximo.");
+	    }
+
+	    List<Movil> movilesFiltrados = movilRepository.findAll().stream()
+	        .filter(movil -> movil.getPrecio() >= movilFilterDTO.precioMin() && movil.getPrecio() <= movilFilterDTO.precioMax())
+	        .filter(movil -> movilFilterDTO.ram() == null || Integer.valueOf(movil.getRam()).equals(movilFilterDTO.ram())) 
+	        .filter(movil -> movilFilterDTO.nfc() == null || movil.isNFC() == movilFilterDTO.nfc()) 
+	        .filter(movil -> movilFilterDTO.tecnologiaPantalla() == null || movil.getPantalla().getTecnologia().equalsIgnoreCase(movilFilterDTO.tecnologiaPantalla()))
+	        .filter(movil -> movilFilterDTO.marca() == null || movil.getMarca().equalsIgnoreCase(movilFilterDTO.marca()))
+	        .toList();
+
+	    return movilesFiltrados.stream()
+	        .map(summarizedMovilMapper::mapToDto)
+	        .toList();
+	}
 }
