@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.example.demo.DTOs.MovilDTO;
-import com.example.demo.DTOs.SummarizedMovilDTO;
 import com.example.demo.entities.Dimension;
 import com.example.demo.entities.Movil;
 import com.example.demo.entities.Pantalla;
