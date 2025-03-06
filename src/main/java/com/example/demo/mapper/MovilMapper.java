@@ -9,4 +9,6 @@ import com.example.demo.entities.Movil;
 public interface MovilMapper {
 	public MovilDTO mapToDto(Movil movil);
 
+	public Movil mapToEntity(MovilDTO movilDTO);
+
 }

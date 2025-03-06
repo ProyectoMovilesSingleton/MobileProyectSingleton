@@ -22,7 +22,7 @@ public interface MovilService {
 	
 	//TODO
 	//Para el admin
-	public List<AdminMovilDTO> getAllMoviles();
+	public List<Movil> getAllMoviles();
 	public Optional<AdminMovilDTO> getMovil(int id);
 	public boolean updateMovil(AdminMovilDTO movilDTO);
 	public boolean delete(int id);

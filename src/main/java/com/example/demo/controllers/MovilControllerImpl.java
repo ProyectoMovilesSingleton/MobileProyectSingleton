@@ -1,18 +1,21 @@
 package com.example.demo.controllers;
 
+import java.io.Console;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
+import com.example.demo.entities.Movil;
 import com.example.demo.DTOs.AdminMovilDTO;
 import com.example.demo.DTOs.MovilDTO;
 import com.example.demo.DTOs.MovilFilterDTO;
@@ -68,38 +71,65 @@ public class MovilControllerImpl implements MovilController {
 	//Poner para que solo pueda acceder el administrador a estos métodos
 
 	@Override
-	public ResponseEntity<Boolean> deleteMovil(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	@DeleteMapping("delete")
+	public ResponseEntity<Boolean> deleteMovil(@RequestParam int id) {
+		if (movilService.delete(id)){
+			return  ResponseEntity.ok(true);
+		}else{
+			return  ResponseEntity.badRequest().eTag("Error al eliminar movil").body(false);
+		}
+	}
+
+	@GetMapping("hola")
+	public String say(@RequestBody MovilDTO movilDTO) {
+		return "received: "+ movilDTO;
+	}
+
+
+	@Override
+	@PostMapping("save")
+	public ResponseEntity<Boolean> saveMovil(@RequestBody MovilDTO movilDTO) {
+		if (movilService.addNewMovil(movilDTO)){
+			return ResponseEntity.ok(true);
+		}else{
+			return ResponseEntity.badRequest().eTag("Error al insertar"+ movilDTO).body(false) ;
+		}
+	}
+
+	@Override
+	@GetMapping("all")
+	public ResponseEntity<List<Movil>> getAllDevices() {
+		return ResponseEntity.ok(movilService.getAllMoviles());
+	}
+
+
+	@Override
+	@PutMapping("update")
+	public ResponseEntity<Boolean> updateMovil(@RequestBody AdminMovilDTO movilDTO) {
+		if (movilService.updateMovil(movilDTO)){
+			return ResponseEntity.ok(true);
+		}else{
+			return ResponseEntity.badRequest().eTag("Error al actualizar").body(false);
+		}
 	}
 
 
 
 	@Override
-	public ResponseEntity<Boolean> saveMovil(AdminMovilDTO movilDTO) {
-		// TODO Auto-generated method stub
-		return null;
+	@GetMapping("get")
+	public ResponseEntity<AdminMovilDTO> getMovilAdmin(@RequestParam int id) {
+		Optional<AdminMovilDTO> movilOptional = movilService.getMovil(id);
+		if (movilOptional.isPresent()){
+			return ResponseEntity.ok(movilOptional.get());
+		}else{
+			return ResponseEntity.badRequest().eTag("Error obteniendo el movil").body(null);
+		}
 	}
 
 
 
 	@Override
-	public ResponseEntity<Boolean> updateMovil(AdminMovilDTO movilDTO) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-
-	@Override
-	public ResponseEntity<AdminMovilDTO> getMovilAdmin(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-
-	@Override
+	@GetMapping("getfive")
 	public ResponseEntity<List<SummarizedMovilDTO>> getTop5Moviles() {
 		List<SummarizedMovilDTO> moviles = movilService.getTop5Moviles();
 		if (!moviles.isEmpty()) {
