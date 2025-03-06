@@ -142,10 +142,14 @@ public class MovilControllerImpl implements MovilController {
 	@Override
 	@PostMapping("filtrar")
 	public ResponseEntity<List<SummarizedMovilDTO>> getMovilesByFilters(@RequestBody MovilFilterDTO movilFilterDTO) {
+		try {
 		List<SummarizedMovilDTO> movilesByFilters = movilService.getMovilesByFilters(movilFilterDTO);
 		if(movilesByFilters.isEmpty() && movilesByFilters.size()==0) {
 			return ResponseEntity.noContent().eTag("No hay móviles con las características introducidas").build();	//Build porque si no hay moviles con los parámetros introducidos, no tenemos body para el ResponseEntity
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(movilesByFilters);
+		} catch (IllegalArgumentException e) {
+			return ResponseEntity.badRequest().eTag(e.getMessage()).body(null);
+		}
 	}
 }
