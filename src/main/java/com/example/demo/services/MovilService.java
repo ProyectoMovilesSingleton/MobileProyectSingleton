@@ -8,6 +8,7 @@ import com.example.demo.DTOs.AdminMovilDTO;
 import com.example.demo.DTOs.MovilDTO;
 import com.example.demo.DTOs.MovilFilterDTO;
 import com.example.demo.DTOs.SummarizedMovilDTO;
+import com.example.demo.entities.Movil;
 
 public interface MovilService {
 	//Para el usuario
