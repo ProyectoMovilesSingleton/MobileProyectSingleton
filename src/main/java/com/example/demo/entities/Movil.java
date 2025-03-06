@@ -2,7 +2,6 @@ package com.example.demo.entities;
 
 import java.sql.Date;
 
-import com.example.demo.DTOs.DimensionDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
