@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import com.example.demo.entities.Movil;
 import org.springframework.http.ResponseEntity;
 
 import com.example.demo.DTOs.AdminMovilDTO;
@@ -20,10 +21,10 @@ public interface MovilController {
 	 //CRUD Admin
 	 //A modo de referencia (cambiar si es necesario)
 	 public ResponseEntity<Boolean> deleteMovil(int id);
-	 public ResponseEntity<Boolean> saveMovil(AdminMovilDTO movilDTO);
+	 public ResponseEntity<Boolean> saveMovil(MovilDTO movilDTO);
 	 public ResponseEntity<Boolean> updateMovil(AdminMovilDTO movilDTO);
 	 public ResponseEntity<AdminMovilDTO> getMovilAdmin(int id);
-	 
 	 //Para los filtros de búsqueda obligatorios
 	 public ResponseEntity<List<SummarizedMovilDTO>> getMovilesByFilters(MovilFilterDTO movilFilterDTO);
+	 public ResponseEntity<List<Movil>> getAllDevices();
 }
