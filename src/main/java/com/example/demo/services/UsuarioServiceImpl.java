@@ -4,6 +4,9 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -23,15 +26,18 @@ public class UsuarioServiceImpl implements UsuarioService {
     private final RoleRepository roleRepository;
     private final JwtUtils jwtUtils;
     private final BCryptPasswordEncoder passwordEncoder;
+    private final AuthenticationManager authenticationManager;
     
     // Constructor para la inyección de dependencias
     public UsuarioServiceImpl(UsuarioRepository usuarioRepository, RoleRepository roleRepository, JwtUtils jwtUtils,
-                               BCryptPasswordEncoder passwordEncoder) {
-        this.usuarioRepository = usuarioRepository;
-        this.roleRepository = roleRepository;
-        this.jwtUtils = jwtUtils;
-        this.passwordEncoder = passwordEncoder;
-    }
+			BCryptPasswordEncoder passwordEncoder, AuthenticationManager authenticationManager) {
+		super();
+		this.usuarioRepository = usuarioRepository;
+		this.roleRepository = roleRepository;
+		this.jwtUtils = jwtUtils;
+		this.passwordEncoder = passwordEncoder;
+		this.authenticationManager = authenticationManager;
+	}
 
     @Override
     public boolean createUser(CreateUserDTO createUserDTO) {
@@ -66,7 +72,24 @@ public class UsuarioServiceImpl implements UsuarioService {
         usuarioRepository.save(usuario);
         return true;
     }
+    
+    
 
+    public String loginUser(String username, String password) {
+        // Buscar al usuario en la base de datos
+        Usuario usuario = usuarioRepository.findByUsername(username)
+                .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado: " + username));
+
+        // Verificar si la contraseña proporcionada es correcta
+        if (passwordEncoder.matches(password, usuario.getPassword())) {
+            // Si las contraseñas coinciden, generar un token JWT
+            return jwtUtils.generateAccessToken(username);
+        } else {
+            throw new IllegalArgumentException("Credenciales incorrectas");
+        }
+    }
+
+    
     @Override
     public boolean delete(String username) {
         // Buscar al usuario por su nombre de usuario
