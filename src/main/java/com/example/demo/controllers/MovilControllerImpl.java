@@ -140,7 +140,7 @@ public class MovilControllerImpl implements MovilController {
 	}
 	
 	@Override
-	@PostMapping("filtrar")
+	@GetMapping("filtrar")
 	public ResponseEntity<List<SummarizedMovilDTO>> getMovilesByFilters(@RequestBody MovilFilterDTO movilFilterDTO) {
 		try {
 		List<SummarizedMovilDTO> movilesByFilters = movilService.getMovilesByFilters(movilFilterDTO);
