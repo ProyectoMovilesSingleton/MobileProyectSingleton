@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -25,10 +26,17 @@ public class ControllerUsuario {
 	
 	@PostMapping("/register")
     public ResponseEntity<String> createUser(@RequestBody CreateUserDTO createUserDTO) {
+		try {
+			
         if (usuarioServiceImpl.createUser(createUserDTO)) {
         	return ResponseEntity.status(HttpStatus.OK).body("Usuario creado con éxito");
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al crear el usuario");        
+		} catch (IllegalArgumentException e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al registrar el usuario");  
+		} catch (DataIntegrityViolationException e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ya existe un usuario con el mismo email o contraseña");  
+		}
     }
 	
 	@PostMapping("/login")
