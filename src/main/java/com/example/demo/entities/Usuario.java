@@ -11,6 +11,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,6 +22,12 @@ import lombok.NonNull;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Table (
+        name="Usuario", 
+        uniqueConstraints=
+            @UniqueConstraint(columnNames={"email", "username"})
+    )
+
 public class Usuario {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

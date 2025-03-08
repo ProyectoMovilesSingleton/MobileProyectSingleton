@@ -1,5 +1,6 @@
 package com.example.demo.populaters;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -7,11 +8,13 @@ import java.util.Set;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
+import com.example.demo.DTOs.CreateUserDTO;
 import com.example.demo.entities.RoleEntity;
 import com.example.demo.entities.RoleEnum;
 import com.example.demo.entities.Usuario;
 import com.example.demo.repositories.RoleRepository;
 import com.example.demo.repositories.UsuarioRepository;
+import com.example.demo.services.UsuarioService;
 
 import jakarta.annotation.PostConstruct;
 
@@ -19,43 +22,34 @@ import jakarta.annotation.PostConstruct;
 @Component
 public class UsuariosPopulaters {
 
-	private final UsuarioRepository usuarioRepository;
-	private final RoleRepository roleRepository;
+	private final UsuarioService usuarioService;
 	
-	public UsuariosPopulaters(UsuarioRepository usuarioRepository, RoleRepository roleRepository) {
+	public UsuariosPopulaters( UsuarioService usuarioService) {
 		super();
-		this.usuarioRepository = usuarioRepository;
-		this.roleRepository = roleRepository;
+		this.usuarioService = usuarioService;
 	}
 	@PostConstruct
 	public void Populate() {
 		//Un usuario con todos los roles
-		Set<RoleEntity> roles = new HashSet<>();
-		roles.add(roleRepository.findByName(RoleEnum.ADMIN).get());
-		roles.add(roleRepository.findByName(RoleEnum.MODERATOR).get());
-		roles.add(roleRepository.findByName(RoleEnum.USER).get());
-		//Lo añado de esta manera porque cuando intentas meterlo con el constructor entero da fallo aparentemente por el id
-		Usuario admin = new Usuario("pepitogrillo@gmail.com", "PepitoGrillo", "pepitoGrillo");
-		admin.setRoles(roles);
-		usuarioRepository.save(admin);
+		String [] adminroles = {"ADMIN", "MODERATOR", "USER"}; 
+		usuarioService.createUser(new CreateUserDTO("PepitoGrillo", "pepitoGrillo", adminroles) );
 		
-		roles.remove(roleRepository.findByName(RoleEnum.ADMIN).get());
-		Usuario moderator = new Usuario("juanito@gmail.com", "Juanito", "juanito");
-		moderator.setRoles(roles);
-		usuarioRepository.save(moderator);
+		String [] moderatorRoles = {"MODERATOR", "USER"};
+		usuarioService.createUser(new CreateUserDTO("Juanillo", "juanillo", moderatorRoles));
 		
-		List<Usuario> of = List.of(new Usuario("me1@gmail.com", "me1", "me1"),
-				new Usuario("me2@gmail.com", "me2", "me2"),
-				new Usuario("me3@gmail.com", "me3", "me3"),
-				new Usuario("me4@gmail.com", "me4", "me4"),
-				new Usuario("me5@gmail.com", "me5", "me5")
-				);
+		String [] userRoleStrings = {"USER"};
+		List<CreateUserDTO> of = List.of(
+			new CreateUserDTO("me1", "me1", moderatorRoles),
+			new CreateUserDTO("me2", "me2", moderatorRoles),
+			new CreateUserDTO("me3", "me3", moderatorRoles),
+			new CreateUserDTO("me4", "me4", moderatorRoles),
+			new CreateUserDTO("me5", "me5", moderatorRoles)
+		);
 		
-		roles.remove(roleRepository.findByName(RoleEnum.MODERATOR).get());
-		of.stream().forEach(user -> {
-			user.setRoles(roles);
+		of.stream().forEach(dto -> {
+			usuarioService.createUser(dto);		
 		});
-		usuarioRepository.saveAll(of);
+		
 		
 	}
 	
